@@ -1,0 +1,80 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "gpuType": "T4",
+      "authorship_tag": "ABX9TyMaO4pAqJtmKlTm1/rSBRQx",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/gist/wer310/5568d87c85314d2441893f1c223dc8a2/untitled28.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "cellView": "form",
+        "id": "HZDoqqGTemNh"
+      },
+      "outputs": [],
+      "source": [
+        "\n",
+        "#@title Загрузка модели\n",
+        "\n",
+        "#@markdown Просто запустите это и дождитесь загрузки\n",
+        "\n",
+        "!wget -O model.safetensors https://civitai.com/api/download/models/106922?type=Model&format=SafeTensor&size=pruned&fp=fp16 --predisposition\n",
+        "\n",
+        "from diffusers import StableDiffusionPipeline\n",
+        "\n",
+        "pipe = StableDiffusionPipeline.from_single_file(\"model.safetensors\").to(\"cuda\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#@title Генерация\n",
+        "\n",
+        "#@markdown Настройте генератор и запустите его:\n",
+        "\n",
+        "\n",
+        "\n",
+        "prompt = \"cute anime girl\" #@param {type: \"string\"}\n",
+        "is_hentai = True #@param {type: \"boolean\"}\n",
+        "is_porn = True #@param {type: \"boolean\"}\n",
+        "\n",
+        "if is_hentai:\n",
+        "   prompt += \", hentai\"\n",
+        "if is_porn:\n",
+        "   prompt += \", naked, porn\"\n",
+        "\n",
+        "pipe(prompt).images[0]"
+      ],
+      "metadata": {
+        "cellView": "form",
+        "id": "Oy7G6XowfEUQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
